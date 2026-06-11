@@ -1,0 +1,122 @@
+/*
+ * MiniStocks created by Daniel Kostuj
+ *
+ * This file contains all definitions for the TickerInfoDownloader class.
+ * The TickerInfoDownloader class downloads the newest stock price info for a single ticker.
+ *
+ * Use of this source code is governed by the license that can be
+ * found in the LICENSE file.
+ */
+
+#include "../file/File.h"
+#include "TickerInfoDownloader.h"
+#include <QDebug>
+#ifdef HAS_CURL
+    #include "curl/curl.h"
+#else
+    #include <QNetworkAccessManager>
+    #include <QNetworkReply>
+    #include <QEventLoop>
+    #include <QNetworkRequest>
+    #include <QMessageBox>
+    #include <QFileInfo>
+    #include <QObject>
+#endif
+
+
+TickerInfoDownloader::TickerInfoDownloader(const QString &ticker) : tickerSymbol(ticker)
+{
+
+}
+
+
+void TickerInfoDownloader::downloadData(const QString &url, const QString &filepath) {
+    File::makeSaveDir();
+
+#ifdef HAS_CURL
+
+    if ((curl = curl_easy_init())) {
+        fp = fopen(filepath.toLatin1().data(), "wb");
+        curl_easy_setopt(curl, CURLOPT_URL, url.toLatin1().data());
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_write_callback());
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+        curl_easy_perform(curl);
+        curl_easy_cleanup(curl);
+        fclose(fp);
+        return;
+    }
+
+    throw;
+
+}
+#else
+    QNetworkAccessManager manager;
+    QNetworkReply *reply;
+    QEventLoop loop;
+    QString path;
+
+    QNetworkRequest request(url);
+    reply = manager.get(request);
+
+    QObject::connect (reply, SIGNAL(finished()),&loop, SLOT(quit()));
+
+    loop.exec();
+
+    path = QUrl(url).path();
+
+    QFile file(filepath);
+    file.open(QIODevice::WriteOnly);
+    file.write(reply->readAll());
+    file.close();
+
+    reply->deleteLater();
+
+}
+#endif
+
+// parses raw CSV data and saves it into the TckerItem vector
+std::vector<QString> TickerInfoDownloader::parseCSVintoVector(std::istream& csv) {
+    std::string line;
+    std::vector<QString> parsedCSV;
+
+    // IEXTradingData consists of two lines:
+    while (std::getline(csv,line,','))
+        parsedCSV.emplace_back(QString::fromStdString(line));
+
+    return parsedCSV;
+}
+
+void TickerInfoDownloader::downloadAndParseCSVFile  () {
+    auto fileName = "/quotes_" + tickerSymbol + ".csv";
+    auto csvFileLocation = File::getFileInSaveDir(fileName);
+    // download & save JSON file from Stooq
+    QString symbol = tickerSymbol;
+
+    // تبدیل نمادهای قدیمی
+    if (symbol.endsWith(".US"))
+        symbol.chop(3);
+
+    QString quotes =
+        "https://www.alphavantage.co/query?"
+        "function=GLOBAL_QUOTE"
+        "&symbol=" + symbol +
+        "&datatype=csv"
+        "&apikey=ESP6IJ8DDY716RXU";
+    try {
+        downloadData(quotes, csvFileLocation);
+    } catch (...) {
+        qDebug() << "new CSV file for " << tickerSymbol << " cannot be downloaded.";
+        return;
+    }
+
+
+    // parse CSV file & delete it afterwards
+    std::ifstream csvFile(csvFileLocation.toStdString());
+    this->stockData = parseCSVintoVector(csvFile);
+    QFile::remove(csvFileLocation);
+}
+
+std::vector<QString> TickerInfoDownloader::getData() {
+    downloadAndParseCSVFile();
+    return this->stockData;
+}
