@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=MiniStocks
+Comment=Widget to display real-time stock data
+Exec=MiniStocks
+Icon=ministocks
+Categories=Utility;Monitor;
+Keywords=monitor;dockapp;
