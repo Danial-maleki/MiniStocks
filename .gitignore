@@ -1,0 +1,37 @@
+# Build directories
+build/
+*-build/
+Desktop-*/
+
+# Qt Creator files
+*.pro.user
+*.pro.user.*
+.qtc_clangd/
+
+# Compiled files
+*.o
+*.so
+*.a
+MiniStocks
+moc_*.cpp
+ui_*.h
+Makefile
+.qmake.stash
+
+# Backup files
+*~
+*.swp
+*.bak
+
+# Debian build files
+debian/files
+debian/.debhelper/
+debian/*.debhelper
+debian/*.substvars
+debian/*.log
+*.deb
+*.ddeb
+*.changes
+*.buildinfo
+*.build
+debian/tmp/
