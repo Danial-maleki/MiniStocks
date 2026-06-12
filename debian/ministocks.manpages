@@ -1,3 +1,1 @@
-.TH MINISTOCKS 1
-.SH NAME
-ministocks \- minimalistic QT stock ticker for Linux
+debian/man/ministocks.1
