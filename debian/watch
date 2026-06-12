@@ -1,2 +1,5 @@
 version=4
-https://github.com/Danial-maleki/MiniStocks/tags .*/v?(\d[\d.]*)\.tar\.gz
+# GitHub hosted projects
+opts="filenamemangle=s%(?:.*?)?v?(\d[\d.]*)\.tar\.gz%$1.tar.gz%" \
+   https://github.com/<user>/ministocks/tags \
+   (?:.*?/)?v?(\d[\d.]*)\.tar\.gz debian uupdate
