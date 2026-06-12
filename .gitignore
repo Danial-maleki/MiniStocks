@@ -1,32 +1,11 @@
-# Build artifacts
 *.o
-*.so
-*.a
 moc_*.cpp
 ui_*.h
 Makefile
 .qmake.stash
 MiniStocks
 build/
-*-build/
-
-# Qt Creator files
 *.pro.user
-*.pro.user.*
 .qtc_clangd/
-
-# Debian build files
-debian/.debhelper/
-debian/*.debhelper
-debian/*.substvars
-debian/files
 *.deb
-*.ddeb
 *.changes
-*.buildinfo
-*.build
-
-# Backup files
-*~
-*.swp
-*.bak
