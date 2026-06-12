@@ -1,7 +1,6 @@
 # Build directories
-build/
+build*/
 *-build/
-Desktop-*/
 
 # Qt Creator files
 *.pro.user
@@ -18,20 +17,18 @@ ui_*.h
 Makefile
 .qmake.stash
 
-# Backup files
-*~
-*.swp
-*.bak
-
 # Debian build files
-debian/files
 debian/.debhelper/
 debian/*.debhelper
 debian/*.substvars
-debian/*.log
+debian/files
 *.deb
 *.ddeb
 *.changes
 *.buildinfo
 *.build
-debian/tmp/
+
+# Backup files
+*~
+*.swp
+*.bak
