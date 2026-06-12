@@ -5,8 +5,8 @@ Maintainer: Danial maleki (Debian maintainer) <danialmaleki.online@gmail.com>
 Build-Depends: debhelper-compat (= 13), qtbase5-dev, qt5-qmake, qttools5-dev-tools
 Standards-Version: 4.7.0
 Vcs-Browser: https://salsa.debian.org/myczko-guest/ministocks
-Vcs-Git: https://salsa.debian.org/myczko-guest/ministocks.git
-Homepage: https://github.com/Dakostu/MiniStocks
+Vcs-Git: https://github.com/Danial-maleki/MiniStocks.git
+Homepage: https://github.com/Danial-maleki/MiniStocks
 
 Package: ministocks
 Architecture: any
