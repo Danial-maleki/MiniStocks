@@ -1,7 +1,0 @@
-ministocks (0+git20200120-5) unstable; urgency=medium
-
-  * New maintainer (Closes: #1091204)
-  * Fix source directory structure in debian/rules
-
- -- Danial maleki (Debian maintainer) <danialmaleki.online@gmail.com>  Thu, 04 Jun 2026 18:30:00 +0000
-
