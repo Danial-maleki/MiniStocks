@@ -18,7 +18,7 @@
 #include <QString>
 #include <fstream>
 #include <vector>
-
+#include <QElapsedTimer>
 class TickerInfoDownloader
 {
 #ifdef HAS_CURL
@@ -35,6 +35,10 @@ class TickerInfoDownloader
 public:    
     TickerInfoDownloader(const QString &ticker);
     std::vector<QString> getData();
+private:
+    QElapsedTimer lastFetchTime;
+    QString convertSymbol(const QString &symbol);
+    std::vector<QString> parseYahooJSON(const QByteArray &data);
 };
 
 #endif // TICKERINFODOWNLOADER_H

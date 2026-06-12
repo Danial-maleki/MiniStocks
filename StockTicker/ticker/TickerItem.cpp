@@ -26,17 +26,26 @@ std::vector<QString> TickerItem::downloadItemData() {
 // assigns parsed data from CSV file to TickerItem components
 void TickerItem::assignNewItemData(std::vector<QString> &parsedCSV) {
     try {
-        value = parsedCSV.at(2).toDouble();
-        change = (value - parsedCSV.at(1).toDouble()) / value;
-    } catch (const std::exception& e) { // Spelling error? Connection problems? Stock not existing anymore?
+        if (parsedCSV.size() < 10) {
+            qDebug() << tickerSymbol << ":\t TickerItem can not be loaded (insufficient data)";
+            return;
+        }
+        double price = parsedCSV.at(4).toDouble();
+        double open  = parsedCSV.at(1).toDouble();
+
+        value = price;
+
+        if (open == 0.0)
+            change = 0.0;
+        else
+            change = (price - open) / open * 100.0;
+
+    } catch (const std::exception& e) {
         qDebug() << tickerSymbol << ":\t TickerItem can not be loaded";
         qDebug() << e.what();
         return;
     }
-
-    return;
 }
-
 QString TickerItem::buildColorblock (const QString  &color){
     return "<font color = \"" + color + "\">";
 }
