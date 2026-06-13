@@ -1,3 +1,9 @@
+ministocks (0+git20200120-7) unstable; urgency=medium
+
+  * Migrate to Qt6, fix watch, copyright, rules, add manpage
+
+ -- Danial maleki (Debian maintainer) <danialmaleki.online@gmail.com>  Sat, 13 Jun 2026 11:12:11 -0400
+
 ministocks (0+git20200120-6) unstable; urgency=medium
 
   [ D A N I A L ]
