@@ -1,3 +1,10 @@
+ministocks (0+git20200120-5.1) UNRELEASED; urgency=medium
+
+  * Non-maintainer upload.
+  * 
+
+ -- D A N I A L <danial@dani>  Sat, 13 Jun 2026 10:32:26 -0400
+
 ministocks (0+git20200120-5) unstable; urgency=medium
 
   * New maintainer (Closes: #1091204)
