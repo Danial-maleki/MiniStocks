@@ -1,9 +1,14 @@
-ministocks (0+git20200120-5.1) UNRELEASED; urgency=medium
+ministocks (0+git20200120-6) unstable; urgency=medium
 
+  [ D A N I A L ]
   * Non-maintainer upload.
   * 
 
- -- D A N I A L <danial@dani>  Sat, 13 Jun 2026 10:32:26 -0400
+  [ Danial Maleki ]
+  * Fix issues from Alex: update copyright, rules, watch, Standards-
+    Version
+
+ -- Danial Maleki <danialmaleki.online@gmail.com>  Sat, 13 Jun 2026 10:36:43 -0400
 
 ministocks (0+git20200120-5) unstable; urgency=medium
 
